@@ -13,8 +13,8 @@ public class Menu {
 	private int option;
 	private Scanner s = new Scanner(System.in);
 	private CurrencyList currencies = new CurrencyList();
-	private AccountList accounts = new AccountList();
-	private ContactList contacts = new ContactList();
+	private AccountList accounts = new AccountList(s);
+	private ContactList contacts = new ContactList(s);
 	private TransactionList transactions = new TransactionList();
 	
 	public Menu(User user) {

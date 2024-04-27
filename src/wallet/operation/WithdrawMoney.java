@@ -12,7 +12,11 @@ public class WithdrawMoney implements MoneyOperations{
 	private double amount;
 	private double total;
 	private boolean wasSuccessful = false;
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
+	
+	public WithdrawMoney(Scanner s) {
+		this.s = s;
+	}
 
 	@Override
 	public double calculateMoney(AccountList accounts) {
@@ -52,8 +56,8 @@ public class WithdrawMoney implements MoneyOperations{
 				System.out.print("Ingrese monto a retirar: ");
 				do {
 					try {
-						this.amount = s.nextDouble();
-						if(amount <= 0 || amount > accounts.findByID(accountID).getBalance()) {
+						amount = s.nextDouble();
+						if(amount < 1 || amount > accounts.findByID(accountID).getBalance()) {
 							throw new InputMismatchException();
 						}
 					} catch (InputMismatchException e) {
@@ -63,6 +67,6 @@ public class WithdrawMoney implements MoneyOperations{
 						continue;
 					}
 					break;
-				} while(!s.hasNextDouble() || !s.hasNextInt() || amount < 1);
+				} while(!s.hasNextDouble() || !s.hasNextInt() || amount < 1 || amount > accounts.findByID(accountID).getBalance());
 			}
 }

@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 import wallet.createEntities.CreateUser;
 import wallet.entities.User;
-import wallet.entityList.AccountList;
-import wallet.entityList.BankList;
-import wallet.entityList.ContactList;
-import wallet.entityList.CurrencyList;
 import wallet.menu.Menu;
 
 

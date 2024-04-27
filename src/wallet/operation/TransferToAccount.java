@@ -13,7 +13,11 @@ public class TransferToAccount implements MoneyOperations{
 	private double amount;
 	private double total;
 	private boolean wasSuccessful = false;
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
+	
+	public TransferToAccount(Scanner s) {
+		this.s = s;
+	}
 	@Override
 	public double calculateMoney(AccountList accounts) {
 		chooseRecipient(accounts);
@@ -69,7 +73,7 @@ public class TransferToAccount implements MoneyOperations{
 		do {
 			try {
 				this.amount = s.nextDouble();
-				if(amount <= 0 || amount > accounts.findByID(accountSenderID).getBalance()) {
+				if(amount < 1 || amount > accounts.findByID(accountSenderID).getBalance()) {
 					throw new InputMismatchException();
 				}
 			} catch (InputMismatchException e) {
@@ -79,7 +83,7 @@ public class TransferToAccount implements MoneyOperations{
 				continue;
 			}
 			break;
-		} while(!s.hasNextDouble() || !s.hasNextInt() || amount < 1);
+		} while(!s.hasNextDouble() || !s.hasNextInt() || amount < 1 || amount > accounts.findByID(accountSenderID).getBalance());
 	}
 
 }

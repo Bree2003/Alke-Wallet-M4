@@ -12,7 +12,13 @@ public class DepositMoney implements MoneyOperations{
 	private double amount;
 	private double total;
 	private boolean wasSuccessful = false;
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
+	
+	
+
+	public DepositMoney(Scanner s) {
+		this.s = s;
+	}
 
 	@Override
 	public double calculateMoney(AccountList accounts) {

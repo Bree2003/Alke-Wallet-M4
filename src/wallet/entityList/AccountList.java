@@ -13,7 +13,11 @@ public class AccountList implements GetInformation<Account>{
 	private List<Account> accounts = new ArrayList<>();
 	private BankList banks = new BankList();
 	private CurrencyList currencies = new CurrencyList();
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
+
+	public AccountList(Scanner s) {
+		this.s = s;
+	}
 
 	@Override
 	public Account findByID(int id) {

@@ -13,11 +13,16 @@ import wallet.entityList.AccountList;
 
 public class ConvertCurrency {
 	
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
 	private int option;
+	private int account;
 	private int accountID;
 	private int currencyID;
 	private double exchange;
+	
+	public ConvertCurrency(Scanner s) {
+		this.s = s;
+	}
 
 	public double convertCurrency(AccountList accounts) {
 		
@@ -26,27 +31,27 @@ public class ConvertCurrency {
 		
 		switch(option) {
 		case 1:
-			DollarCurrency dollar = new DollarCurrency();
+			DollarCurrency dollar = new DollarCurrency(s);
 			exchange = dollar.convertCurrency(accounts, accountID, currencyID);
 			break;
 		case 2:
-			ChileanCurrency chilean = new  ChileanCurrency();
+			ChileanCurrency chilean = new  ChileanCurrency(s);
 			exchange = chilean.convertCurrency(accounts, accountID, currencyID);
 			break;
 		case 3:
-			EuroCurrency euro = new  EuroCurrency();
+			EuroCurrency euro = new  EuroCurrency(s);
 			exchange = euro.convertCurrency(accounts, accountID, currencyID);
 			break;
 		case 4:
-			PoundSterlingCurrency poundSterling = new  PoundSterlingCurrency();
+			PoundSterlingCurrency poundSterling = new  PoundSterlingCurrency(s);
 			exchange = poundSterling.convertCurrency(accounts, accountID, currencyID);
 			break;
 		case 5:
-			JapaneseYenCurrency japaneseYen = new  JapaneseYenCurrency();
+			JapaneseYenCurrency japaneseYen = new  JapaneseYenCurrency(s);
 			exchange = japaneseYen.convertCurrency(accounts, accountID, currencyID);
 			break;
 		case 6:
-			SouthKoreanWonCurrency southkoreanWon = new  SouthKoreanWonCurrency();
+			SouthKoreanWonCurrency southkoreanWon = new  SouthKoreanWonCurrency(s);
 			exchange = southkoreanWon.convertCurrency(accounts, accountID, currencyID);
 			break;
 		default:
@@ -66,9 +71,10 @@ public class ConvertCurrency {
 		System.out.print("Escoga cuenta para convertir: ");
 		do {
 			try {
-				this.option = s.nextInt();
-				this.accountID = option;
-				if(option < 1 || option > accounts.size()) {
+				this.account = s.nextInt();
+				this.accountID = account;
+				this.option = accounts.findByID(account).getCurrencyID();
+				if(account < 1 || account > accounts.size()) {
 					throw new InputMismatchException();
 				}
 			} catch (InputMismatchException e) {
@@ -78,7 +84,7 @@ public class ConvertCurrency {
 				continue;
 			}
 			break;
-		} while (!s.hasNextInt() || option < 1 || option > accounts.size());
+		} while (!s.hasNextInt() || account < 1 || account > accounts.size());
 		
 	}
 	

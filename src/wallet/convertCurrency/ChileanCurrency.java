@@ -13,9 +13,10 @@ public class ChileanCurrency implements ConvertCurrency{
 
 	private List<Double> currencyExchange = new ArrayList<>();
 	private CurrencyList currencies = new CurrencyList();
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
 	
-	public ChileanCurrency() {
+	public ChileanCurrency(Scanner s) {
+		this.s = s;
 		addCurrency();
 	}
 	
@@ -25,6 +26,8 @@ public class ChileanCurrency implements ConvertCurrency{
 		double exchange = accounts.findByID(accountID).getBalance() * currencyExchange.get(currencyID-1);
 		accounts.findByID(accountID).setBalance(exchange);
 		accounts.findByID(accountID).setCurrencyID(currencyID);
+		System.out.println("La cuenta tiene un saldo de $" + accounts.findByID(accountID).getBalance()
+				+ currencies.findByID(currencyID).getISOcode());
 		return exchange;
 	}
 	

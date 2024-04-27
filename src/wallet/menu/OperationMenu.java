@@ -16,12 +16,13 @@ import wallet.operation.WithdrawMoney;
 
 public class OperationMenu {
 	
-	private ConvertCurrency convert = new ConvertCurrency();
-	private DepositMoney depositMoney = new DepositMoney();
-	private WithdrawMoney withdrawMoney = new WithdrawMoney();
-	private TransferToAccount transferToAccount = new TransferToAccount();
-	private TransferToContact transferToContact = new TransferToContact();
 	private Scanner s = new Scanner(System.in);
+	private ConvertCurrency convert = new ConvertCurrency(s);
+	private DepositMoney depositMoney = new DepositMoney(s);
+	private WithdrawMoney withdrawMoney = new WithdrawMoney(s);
+	private TransferToAccount transferToAccount = new TransferToAccount(s);
+	private TransferToContact transferToContact = new TransferToContact(s);
+	
 	private double amount;
 
 	public void operations(int option, CurrencyList currencies, AccountList accounts, ContactList contacts,
@@ -57,6 +58,9 @@ public class OperationMenu {
 		case 5:
 			if(accounts.size() == 0) {
 				System.out.println("No hay cuentas, tiene que agregar una.");
+				break;
+			} else if(accounts.size() < 2) {
+				System.out.println("No tiene suficientes cuentas para hacer una transferencia");
 				break;
 			}
 			amount = transferToAccount.calculateMoney(accounts);

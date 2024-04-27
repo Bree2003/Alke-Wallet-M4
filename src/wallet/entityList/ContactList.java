@@ -12,8 +12,12 @@ public class ContactList implements GetInformation<Contact>{
 
 	private List<Contact> contacts = new ArrayList<>();
 	private BankList banks = new BankList();
-	private Scanner s = new Scanner(System.in);
+	private Scanner s;
 	
+	public ContactList(Scanner s) {
+		this.s = s;
+	}
+
 	@Override
 	public Contact findByID(int id) {
 		for(Contact contact : contacts) {

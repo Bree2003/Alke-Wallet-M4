@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import wallet.entityList.AccountList;
-import wallet.operation.WithdrawMoney;
+import wallet.operation.ConvertCurrency;
 
-public class WithdrawMoneyTest {
+public class ConvertCurrencyTest {
 
 	private AccountList accounts;
-	private WithdrawMoney withdrawMoney;
+	private ConvertCurrency convertCurrency;
 	private Scanner s;
 
 	@BeforeEach
@@ -29,12 +29,10 @@ public class WithdrawMoneyTest {
 	
 	@Test
 	public void testCalculateMoney() {
-		withdrawMoney = new WithdrawMoney(s);
-		when(s.nextInt()).thenReturn(1);
-		when(s.nextDouble()).thenReturn(5600.00);
-		withdrawMoney.calculateMoney(accounts);
-		assertEquals(44400.00,accounts.findByID(1).getBalance());
+		convertCurrency = new ConvertCurrency(s);
+		when(s.nextInt()).thenReturn(1).thenReturn(5);
+		convertCurrency.convertCurrency(accounts);
+		assertEquals(9614500.00,accounts.findByID(1).getBalance());
+		assertEquals(5,accounts.findByID(1).getCurrencyID());
 	}
-
-
 }

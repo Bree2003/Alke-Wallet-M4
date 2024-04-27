@@ -10,29 +10,31 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import wallet.entityList.AccountList;
-import wallet.operation.WithdrawMoney;
+import wallet.operation.TransferToContact;
 
-public class WithdrawMoneyTest {
+public class TransferToContactTest {
 
 	private AccountList accounts;
-	private WithdrawMoney withdrawMoney;
+	private TransferToContact transferToContact;
 	private Scanner s;
 
 	@BeforeEach
 	public void setUp() {
 		s = mock(Scanner.class);
 		accounts = new AccountList(s);
-		when(s.nextInt()).thenReturn(4).thenReturn(5);
+		when(s.nextInt()).thenReturn(4).thenReturn(5).thenReturn(1).thenReturn(2);
+		accounts.injectData();
 		accounts.injectData();
 		accounts.findByID(1).setBalance(50000.00);
+
 	}
 	
 	@Test
 	public void testCalculateMoney() {
-		withdrawMoney = new WithdrawMoney(s);
+		transferToContact = new TransferToContact(s);
 		when(s.nextInt()).thenReturn(1);
 		when(s.nextDouble()).thenReturn(5600.00);
-		withdrawMoney.calculateMoney(accounts);
+		transferToContact.calculateMoney(accounts);
 		assertEquals(44400.00,accounts.findByID(1).getBalance());
 	}
 
